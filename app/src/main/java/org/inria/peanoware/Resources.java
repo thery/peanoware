@@ -4,7 +4,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 /**
  *
- * @author  Laurent.Thery
+ * @author  Laurent Théry
+ * @date  2/19/15.
  */
 
 public class Resources {

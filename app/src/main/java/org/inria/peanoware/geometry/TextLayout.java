@@ -6,7 +6,8 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 
 /**
- * Created by thery on 2/20/15.
+ * @author Laurent Théry
+ * @date 2/20/15.
  * Text with an associated layout
  */
 public class TextLayout {

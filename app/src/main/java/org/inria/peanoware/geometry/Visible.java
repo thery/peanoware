@@ -1,9 +1,10 @@
 package org.inria.peanoware.geometry;
 
-/*
+/**
+ * Created by Laurent Théry on 2/15/15.
  * Visible.java
  *
- */
+ **/
 
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -15,6 +16,7 @@ import java.util.Vector;
  * Compatibility class
  *
  * @author Laurent Théry
+ * @date 2/19/15.
  */
 public class Visible {
 

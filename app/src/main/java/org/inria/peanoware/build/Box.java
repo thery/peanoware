@@ -15,7 +15,8 @@ import org.inria.peanoware.formula.Int;
 import java.util.Random;
 
 /**
- * Created by thery on 2/15/15.
+ * @author Laurent Théry
+ * @date 2/15/15.
  * Box that represents a formula
  */
 

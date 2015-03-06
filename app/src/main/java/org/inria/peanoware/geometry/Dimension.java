@@ -1,7 +1,8 @@
 package org.inria.peanoware.geometry;
 
 /**
- * Created by thery on 2/15/15.
+ * @author Laurent Théry
+ * @date 2/15/15.
  * Dimension
  *
  */

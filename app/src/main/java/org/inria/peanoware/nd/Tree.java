@@ -13,7 +13,8 @@ import org.inria.peanoware.Resources;
 import java.util.Vector;
 
 /**
- * Created by thery on 2/19/15.
+ * @author Laurent Théry
+ * @date 2/19/15.
  * Tree structure
  */
 public class Tree {

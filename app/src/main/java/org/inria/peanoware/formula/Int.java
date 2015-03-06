@@ -1,7 +1,8 @@
 package org.inria.peanoware.formula;
 
 /**
- * Created by thery on 3/3/15.
+ * @author Laurent Théry
+ * @date 3/3/15.
  * Integer
  */
 public class Int {

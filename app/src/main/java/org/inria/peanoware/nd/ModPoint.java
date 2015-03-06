@@ -1,7 +1,8 @@
 package org.inria.peanoware.nd;
 
 /**
- * Created by thery on 2/19/15.
+ * @author Laurent Théry
+ * @date 2/19/15.
  * A point with a modality
  */
 class ModPoint {

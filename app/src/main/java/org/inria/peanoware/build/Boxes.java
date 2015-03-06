@@ -10,7 +10,8 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * Created by thery on 2/15/15.
+ * @author Laurent Théry
+ * @date 2/15/15.
  * List of Boxes
  */
 

@@ -5,6 +5,12 @@ package org.inria.peanoware.formula;
  import org.inria.peanoware.Resources;
  import java.util.Vector;
 
+/**
+ * @author Laurent Théry
+ * @date 2/15/15.
+ * Formula
+ */
+
 public class Formula {
     private static final boolean LEFT = false;
     private static final Formula FALSE = new Formula(Resources.FALSE,

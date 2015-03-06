@@ -7,9 +7,11 @@ import android.graphics.drawable.ShapeDrawable;
 import org.inria.peanoware.Resources;
 
 /**
- * Created by thery on 2/15/15.
+ * @author Laurent Théry
+ * @date 2/15/15.
  * Point in a Box
  */
+
 class BoxPoint {
     private int i;
     private int x;

@@ -1,5 +1,11 @@
 package org.inria.peanoware;
 
+/**
+ * @author Laurent Théry
+ * @date  2/19/15
+ * Natural Deduction Activity
+ */
+
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.support.v7.app.ActionBarActivity;

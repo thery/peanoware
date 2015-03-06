@@ -1,7 +1,8 @@
 package org.inria.peanoware.nd;
 
 /**
- * Created by thery on 2/21/15.
+ * @author Laurent Théry
+ * @date 2/21/15.
  * View for Natural deduction
  */
 import android.app.AlertDialog;
