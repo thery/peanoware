@@ -2,7 +2,7 @@ package org.inria.peanoware.formula;
 
 /**
  *
- * @author  thery
+ * @author  Laurent Théry
  */
 abstract class Type {
     public abstract boolean isProp();
