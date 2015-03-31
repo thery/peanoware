@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Peanoware</string>
+    <string name="action_new">Nuova Formula</string>
+    <string name="action_size">Dimensioni dei Caratteri</string>
+    <string name="alert_size">L\' albero e\' troppo grande!</string>
+    <string name="seek_ok">Salva</string>
+    <string name="seek_cancel">Cancella</string>
+
+</resources>
