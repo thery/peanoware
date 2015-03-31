@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Peanoware</string>
+    <string name="action_new">Nouvelle Formule</string>
+    <string name="action_size">Taille de la Police</string>
+    <string name="alert_size">L\' arbre est trop grand!</string>
+    <string name="seek_ok">Sauve</string>
+    <string name="seek_cancel">Oublie</string>
+
+</resources>
