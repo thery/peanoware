@@ -2,20 +2,23 @@ package org.inria.peanoware;
 
 /**
  * @author Laurent Théry
- * @date  2/19/15
+ * @since  2/19/15
  * Natural Deduction Activity
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import org.inria.peanoware.nd.NdView;
 
@@ -24,7 +27,7 @@ public class NdActivity extends ActionBarActivity {
 
 
     private static NdView view;
-
+    private static SeekBar seek;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +61,37 @@ public class NdActivity extends ActionBarActivity {
             view.init();
             return true;
         }
+        if (id == R.id.action_size) {
+            final AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
+            alert.setTitle(R.string.action_size);
+
+            seek=new SeekBar(this);
+            seek.setProgress(Resources.SIZE_FORMULA);
+            seek.setMax(Resources.MAX_SIZE_FORMULA);
+            alert.setView(seek);
+            alert.setPositiveButton(R.string.seek_ok,new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog,int id)
+                {
+                    int value = seek.getProgress();
+                    view.setFontSize(value);
+                    if (view.redraw()) {
+                        view.invalidate();
+                        dialog.cancel();
+                    }
+                }
+            });
+            alert.setNegativeButton(R.string.seek_cancel,new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog,int id)
+                {
+                    dialog.cancel();
+                }
+            });
+            alert.show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

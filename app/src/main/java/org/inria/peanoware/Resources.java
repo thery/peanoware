@@ -25,9 +25,9 @@ public class Resources {
     public static final Typeface FONT_FORMULA =
             Typeface.create(Typeface.SERIF, Typeface.NORMAL);
   //          Typeface.create(Typeface.SERIF, Typeface.NORMAL);
-    public static final int SIZE_FORMULA = 35;
+    public static int SIZE_FORMULA = 35;
+    public static int MAX_SIZE_FORMULA = 70;
     public static final String ERROR_ATTACH = "You can't perform this attachment";
-    public static final String ERROR_SPACE = "The tree is too big! Sorry";
     private static final String COPY = "Copy";
     private static final String SPLIT = "Dissolve";
     private static final String[] COMMAND = {COPY, SPLIT, AND, OR, IMP, NEG, FOR_ALL, EXISTS, APPLY};

@@ -1,5 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".NdActivity">
     <item android:id="@+id/action_new" android:orderInCategory="100" android:title="@string/action_new"/>
+    <item
+    android:id="@+id/action_size"  android:orderInCategory="100" android:title="@string/action_size"/>
 
 </menu>

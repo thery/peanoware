@@ -303,4 +303,11 @@ class Pair {
         return hyp.indexOf(tree);
     }
 
+    public void setFontSize(float sz) {
+        main.setFontSize(sz);
+        for (Tree tree : hyp) {
+            tree.setFontSize(sz);
+        }
+    }
+
 }

@@ -14,7 +14,7 @@ import java.util.Vector;
 
 /**
  * @author Laurent Théry
- * @date 2/19/15.
+ * @since 2/19/15.
  * Tree structure
  */
 public class Tree {
@@ -22,6 +22,7 @@ public class Tree {
     public static final int A_NONE = 0;
     private static final int A_LEFT = 1;
     private static final int A_LEFT_RIGHT = 3;
+    private int saved_select = A_NONE;
     private static final int DELTA_X = 15;
     private static final int DELTA_Y = 8;
     private static final int THICKNESS = 2;
@@ -56,6 +57,7 @@ public class Tree {
     }
 
     void setSelect(int select) {
+        saved_select = select;
         if (select == A_LEFT) {
             shapes = new Rect[1];
             Formula f = getConclusion();
@@ -92,7 +94,6 @@ public class Tree {
     public int getArity() {
         return trees.length;
     }
-
 
     void setFather(Tree father) {
         this.father = father;
@@ -601,6 +602,15 @@ public class Tree {
         //System.out.println("makFalseE");
 
         return new Tree(f, false, new Tree[] {this});
+    }
+
+    public void setFontSize(float sz) {
+        text.setSize(sz);
+        size.set(0, 0, 0, 0);
+        setSelect(saved_select);
+        for (Tree tree : trees) {
+            tree.setFontSize(sz);
+        }
     }
 
 }

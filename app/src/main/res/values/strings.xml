@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Peanoware</string>
     <string name="action_new">New Formula</string>
+    <string name="action_size">Font Size</string>
+    <string name="alert_size">The tree is too big!</string>
+    <string name="seek_ok">Save</string>
+    <string name="seek_cancel">Cancel</string>
+
 
 </resources>

@@ -107,9 +107,6 @@ public class NdView extends View {
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
 
-        // get pointer index from the event object
-        int pointerIndex = event.getActionIndex();
-
         // get masked (not specific to a pointer) action
         int maskedAction = event.getActionMasked();
         if (bravo) {
@@ -129,7 +126,9 @@ public class NdView extends View {
                 mp.set(0, 0, Tree.A_NONE);
                 setSelectFrom(pair.inside((int) event.getX(), (int) event.getY(), mp), mp);
                 setAttach(tree);
+                redraw();
                 invalidate();
+
                 return true;
             }
             case MotionEvent.ACTION_MOVE: { // a pointer was moved
@@ -414,10 +413,6 @@ public class NdView extends View {
 
     void centerMainTree() {
         Tree tree = getMainTree();
-        Rect size = tree.getSize();
-//        System.out.println("tree = " +  tree.getSize().left + " " + tree.getSize().right);
-//        System.out.println("width = " + getWidth());
-//        System.out.println("height = " + getHeight());
         tree.setOrigin((getWidth()
                         - tree.getSize().width()) / 2,
                  (getHeight()
@@ -441,7 +436,6 @@ public class NdView extends View {
             Vector<Formula> ctx = new Vector<>();
             Vector<Formula> hCtx = new Vector<>();
             tree.getContext(ctx);
-            String s;
             while (en.hasMoreElements()) {
                 tmp = (Tree) en.nextElement();
                 if (tmp == root) {
@@ -529,7 +523,6 @@ public class NdView extends View {
             return true;
         }
         Enumeration en = pair.getHypothesis();
-        Tree tmp;
         while (en.hasMoreElements()) {
             if (((Tree) en.nextElement()).isInContext(f)) {
                 return true;
@@ -622,12 +615,12 @@ public class NdView extends View {
     }
 
     /** Recompute the layout **/
-    boolean redraw() {
+    public boolean redraw() {
        Tree tree = getMainTree();
         Visible vis = new Visible(new Dimension(getWidth(),getHeight()));
         Rect mainRec = vis.bestChoice(tree.getSize());
         if (mainRec == null) {
-            aD.setMessage(Resources.ERROR_SPACE);
+            aD.setMessage(R.string.alert_size);
             aD.show();
             return false;
         }
@@ -641,7 +634,7 @@ public class NdView extends View {
             tmp = (Tree) en.nextElement();
             recs[i] = vis.bestChoice(tmp.getSize());
             if (recs[i] == null) {
-                aD.setMessage(Resources.ERROR_SPACE);
+                aD.setMessage(R.string.alert_size);
                 aD.show();
                 return false;
             }
@@ -680,5 +673,9 @@ public class NdView extends View {
             selectedFrom.drawConclusion(c, p, modPointFrom.getMod());
             c.translate(-modPointFrom.getX(), -modPointFrom.getY());
         }
+    }
+    public void setFontSize(float sz) {
+        Resources.SIZE_FORMULA=(int)sz;
+        pair.setFontSize(sz);
     }
 }
