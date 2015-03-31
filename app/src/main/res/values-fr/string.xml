@@ -4,7 +4,7 @@
     <string name="action_new">Nouvelle Formule</string>
     <string name="action_size">Taille de la Police</string>
     <string name="alert_size">L\' arbre est trop grand!</string>
-    <string name="seek_ok">Sauve</string>
-    <string name="seek_cancel">Oublie</string>
+    <string name="seek_ok">Ok</string>
+    <string name="seek_cancel">Annuler</string>
 
 </resources>
