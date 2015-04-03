@@ -220,7 +220,7 @@ public class NdView extends View {
         if (drag != null && selectedTo != selectedFrom) {
             // The user is trying to link two objects
             if (!attachVector.contains(selectedTo)) {
-                aD.setMessage(Resources.ERROR_ATTACH);
+                aD.setMessage(R.string.attach_error);
                 aD.show();
                 return;
             }

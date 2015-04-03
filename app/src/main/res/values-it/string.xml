@@ -4,6 +4,7 @@
     <string name="action_new">Nuova Formula</string>
     <string name="action_size">Dimensioni dei Caratteri</string>
     <string name="alert_size">L\' albero e\' troppo grande!</string>
+    <string name="attach_error">Non si puo\' attaccare</string>string>
     <string name="seek_ok">Salva</string>
     <string name="seek_cancel">Cancella</string>
 

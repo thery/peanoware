@@ -27,7 +27,6 @@ public class Resources {
   //          Typeface.create(Typeface.SERIF, Typeface.NORMAL);
     public static int SIZE_FORMULA = 35;
     public static int MAX_SIZE_FORMULA = 70;
-    public static final String ERROR_ATTACH = "You can't perform this attachment";
     private static final String COPY = "Copy";
     private static final String SPLIT = "Dissolve";
     private static final String[] COMMAND = {COPY, SPLIT, AND, OR, IMP, NEG, FOR_ALL, EXISTS, APPLY};

@@ -4,6 +4,7 @@
     <string name="action_new">New Formula</string>
     <string name="action_size">Font Size</string>
     <string name="alert_size">The tree is too big!</string>
+    <string name="attach_error">You can\'t perform this attachment</string>string>
     <string name="seek_ok">Save</string>
     <string name="seek_cancel">Cancel</string>
 
