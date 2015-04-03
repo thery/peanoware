@@ -26,6 +26,7 @@ public class Resources {
             Typeface.create(Typeface.SERIF, Typeface.NORMAL);
   //          Typeface.create(Typeface.SERIF, Typeface.NORMAL);
     public static int SIZE_FORMULA = 35;
+    public static int PREFERED_SIZE_FORMULA = 35;
     public static int MAX_SIZE_FORMULA = 70;
     private static final String COPY = "Copy";
     private static final String SPLIT = "Dissolve";

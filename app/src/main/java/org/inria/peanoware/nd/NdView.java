@@ -32,6 +32,7 @@ import java.util.Vector;
 
 @SuppressWarnings("UnusedAssignment")
 public class NdView extends View {
+    private static int DELTA = 10;
     private final Pair pair;
     private Tree selectedFrom;
     private final ModPoint modPointFrom;
@@ -90,6 +91,7 @@ public class NdView extends View {
     protected void onDraw(Canvas canvas) {
         if (configurationChanged) {
             configurationChanged = false;
+            setFontSize(Resources.PREFERED_SIZE_FORMULA);
             redraw();
         }
         paintComponent(canvas, paint);
@@ -615,17 +617,20 @@ public class NdView extends View {
     }
 
     /** Recompute the layout **/
-    public boolean redraw() {
-       Tree tree = getMainTree();
-        Visible vis = new Visible(new Dimension(getWidth(),getHeight()));
-        Rect mainRec = vis.bestChoice(tree.getSize());
+    public boolean tryRedraw() {
+        Tree tree = getMainTree();
+        Rect r = tree.getSize();
+        Rect r1 = new Rect(r.left - 2 * DELTA, r.top - 2 * DELTA,
+                r.right + 2 * DELTA, r.bottom + 2 * DELTA);
+        Visible vis = new Visible(new Dimension(getWidth(), getHeight()));
+        Rect mainRec = vis.bestChoice(r1);
         if (mainRec == null) {
-            aD.setMessage(R.string.alert_size);
-            aD.show();
+            // aD.setMessage(R.string.alert_size);
+            // aD.show();
             return false;
         }
         mainRec.offsetTo((getWidth() - tree.getWidth()) / 2,
-                         (getHeight() - tree.getHeight()) - 10);
+                (getHeight() - tree.getHeight()) - (2 + Resources.SIZE_FORMULA / 3));
         vis.remove(mainRec);
         Enumeration en = pair.getHypothesis();
         Rect[] recs = new Rect[pair.numberOfHypothesis()];
@@ -634,8 +639,8 @@ public class NdView extends View {
             tmp = (Tree) en.nextElement();
             recs[i] = vis.bestChoice(tmp.getSize());
             if (recs[i] == null) {
-                aD.setMessage(R.string.alert_size);
-                aD.show();
+                // aD.setMessage(R.string.alert_size);
+                // aD.show();
                 return false;
             }
             vis.remove(recs[i]);
@@ -648,6 +653,14 @@ public class NdView extends View {
         }
         invalidate();
         return true;
+    }
+
+    public boolean redraw() {
+        while ((Resources.SIZE_FORMULA > 0) && !tryRedraw() ) {
+            Resources.SIZE_FORMULA--;
+            pair.setFontSize(Resources.SIZE_FORMULA);
+        }
+        return Resources.SIZE_FORMULA > 0;
     }
 
     void paintComponent(Canvas c, Paint p) {

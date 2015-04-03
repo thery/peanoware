@@ -74,6 +74,7 @@ public class NdActivity extends ActionBarActivity {
                 public void onClick(DialogInterface dialog,int id)
                 {
                     int value = seek.getProgress();
+                    Resources.PREFERED_SIZE_FORMULA = value;
                     view.setFontSize(value);
                     if (view.redraw()) {
                         view.invalidate();

@@ -175,6 +175,7 @@ class Pair {
     };
 
     public void init() {
+        Resources.SIZE_FORMULA = Resources.PREFERED_SIZE_FORMULA;
         hyp = new Vector<>();
 
         Formula f = examples[rand.nextInt(examples.length)];

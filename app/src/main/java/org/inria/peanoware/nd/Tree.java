@@ -23,8 +23,8 @@ public class Tree {
     private static final int A_LEFT = 1;
     private static final int A_LEFT_RIGHT = 3;
     private int saved_select = A_NONE;
-    private static final int DELTA_X = 15;
-    private static final int DELTA_Y = 8;
+    private int deltaX;
+    private int deltaY;
     private static final int THICKNESS = 2;
     public static final boolean LEFT = false;
     public static final boolean RIGHT = true;
@@ -50,6 +50,8 @@ public class Tree {
         text = new TextLayout(f.toString());
         text.setTypeface(Resources.FONT_FORMULA);
         text.setSize(Resources.SIZE_FORMULA);
+        deltaX = Resources.SIZE_FORMULA;
+        deltaY = Resources.SIZE_FORMULA / 3;
         this.f = f;
         this.close = close;
         setSons(trees);
@@ -64,8 +66,8 @@ public class Tree {
             String son = f.get(LEFT).toString();
             int i = f.toString().indexOf(son);
             shapes[0] = text.getBounds(i, i + son.length());
-            shapes[0].set(shapes[0].left, shapes[0].top - DELTA_Y  + 2,
-                          shapes[0].right, shapes[0].bottom + DELTA_Y  + 2);
+            shapes[0].set(shapes[0].left, shapes[0].top - deltaY,
+                          shapes[0].right, shapes[0].bottom + deltaY);
             return;
         }
         if (select == A_LEFT_RIGHT) {
@@ -76,13 +78,13 @@ public class Tree {
             String son = f.get(LEFT).toString();
             int i = f.maxPoint(0, pt).x;
             shapes[0] = text.getBounds(i, i + son.length());
-            shapes[0].set(shapes[0].left, shapes[0].top - DELTA_Y  + 2,
-                    shapes[0].right, shapes[0].bottom + DELTA_Y  + 2);
+            shapes[0].set(shapes[0].left, shapes[0].top - deltaY,
+                    shapes[0].right, shapes[0].bottom + deltaY);
             son = f.get(RIGHT).toString();
             i = f.maxPoint(pt.length - 1, pt).x;
             shapes[1] = text.getBounds(i, i + son.length());
-            shapes[1].set(shapes[1].left, shapes[1].top - DELTA_Y + 2,
-                    shapes[1].right, shapes[1].bottom + DELTA_Y + 2);
+            shapes[1].set(shapes[1].left, shapes[1].top - deltaY,
+                    shapes[1].right, shapes[1].bottom + deltaY);
             return;
         }
         shapes = new Rect[0];
@@ -156,9 +158,9 @@ public class Tree {
         }
         int res = trees[0].getWidth(LEFT)
                 + trees[trees.length - 1].getWidth(RIGHT)
-                + DELTA_X;
+                + deltaX;
         for (int i = 1; i < trees.length - 1; i++) {
-            res += trees[i].getWidth() + DELTA_X;
+            res += trees[i].getWidth() + deltaX;
         }
         return res;
     }
@@ -224,7 +226,7 @@ public class Tree {
                 rc = 0;
             }
         }
-        lDelta += DELTA_X;
+        lDelta += deltaX;
         int maxBaseHeight = getMaxBaseHeight();
         // Now we can place all the subTrees
         Rect tmp = new Rect();
@@ -236,11 +238,11 @@ public class Tree {
             size.union(tmp);
         }
         // Now we can take care of the bar
-        int ry = size.bottom + DELTA_Y;
+        int ry = size.bottom + deltaY;
         bar.set(rb, ry, rb + maxWidth, ry + THICKNESS);
         size.union(bar);
         // Finally the conclusion
-        ry += THICKNESS + DELTA_Y - text.getBounds().top;
+        ry += THICKNESS + deltaY - text.getBounds().top;
         conclusion.x = rc;
         conclusion.y = ry;
         Rect rec = text.getBounds();
@@ -605,6 +607,8 @@ public class Tree {
     }
 
     public void setFontSize(float sz) {
+        deltaX = (int)sz;
+        deltaY = (int)(sz / 3);
         text.setSize(sz);
         size.set(0, 0, 0, 0);
         setSelect(saved_select);
