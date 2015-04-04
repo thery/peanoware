@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Peanoware</string>
-    <string name="action_new">Nuova Formula</string>
+    <string name="action_new">Altra Formula</string>
+    <string name="action_reset">Reinizializzare</string>
     <string name="action_size">Dimensione Preferita</string>
     <string name="alert_size">L\' albero e\' troppo grande!</string>
     <string name="attach_error">Non si puo\' attaccare</string>string>

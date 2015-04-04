@@ -14,25 +14,22 @@ import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.Resources;
 
 import java.util.Enumeration;
-import java.util.Random;
 import java.util.Vector;
 
-class Pair {
+public class Pair {
     static private final int DELTA = 10;
     private Tree main;
     static private final Vector<Tree> emptyVector = new Vector<>();
     private Vector<Tree> hyp;
-
-    public Pair() {
-        init();
+    public Pair(int cI) {
+        init(cI);
     }
     static private final String x = Resources.BUILD_PROPOSITION_VARIABLE[0];
     static private final String y = Resources.BUILD_PROPOSITION_VARIABLE[1];
     static private final String z = Resources.BUILD_PROPOSITION_VARIABLE[2];
     static private final String t = Resources.BUILD_PROPOSITION_VARIABLE[3];
-    private static final Random rand = new Random();
     private static final int W_COLOR = Color.rgb(255, 122, 115);
-    private static final Formula[] examples = new Formula[] {
+    public static final Formula[] EXAMPLES = new Formula[] {
             // ((x -> y) /\ (y -> z)) -> (x => z)
             Formula.makeImp(
                     Formula.makeAnd(
@@ -172,14 +169,13 @@ class Pair {
                     Formula.makeOr(
                             Formula.makeOr(Formula.makePropVar(z), Formula.makePropVar(y)),
                             Formula.makePropVar(x))),
+
     };
 
-    public void init() {
+    public void init(int index) {
         Resources.SIZE_FORMULA = Resources.PREFERED_SIZE_FORMULA;
         hyp = new Vector<>();
-
-        Formula f = examples[rand.nextInt(examples.length)];
-        main = new Tree(f, false);
+        main = new Tree(EXAMPLES[index], false);
     }
 
     public void draw(Canvas c, Paint p) {

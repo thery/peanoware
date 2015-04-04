@@ -21,17 +21,26 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.inria.peanoware.NdActivity;
 import org.inria.peanoware.R;
 import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.geometry.Dimension;
 import org.inria.peanoware.geometry.Visible;
 import org.inria.peanoware.Resources;
 
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.Random;
 import java.util.Vector;
 
 @SuppressWarnings("UnusedAssignment")
 public class NdView extends View {
+    private static final Random rand = new Random();
+    private NdActivity nd;
+    public String activeFormulae ;
+    public int numberOfFormulae;
+    public int currentIndex;
+    public boolean bravo;
     private static int DELTA = 10;
     private final Pair pair;
     private Tree selectedFrom;
@@ -44,7 +53,6 @@ public class NdView extends View {
     private Tree attachTree;
     private final Vector<Tree> attachVector;
     private final Paint paint;
-    private boolean bravo;
     private final AlertDialog.Builder aD;
     private boolean configurationChanged;
     private SoundPool soundPool;
@@ -52,8 +60,18 @@ public class NdView extends View {
     private int soundID;
     private AudioManager audioManager;
 
-    public NdView(Context context, AttributeSet attrs) {
+    public NdView(NdActivity nD, Context context, AttributeSet attrs,
+                  String aF, int nF, int cI) {
         super(context, attrs);
+        nd = nD;
+        activeFormulae = aF;
+        numberOfFormulae = nF;
+        currentIndex = cI;
+        if (nF == 0 || (aF.length() != Pair.EXAMPLES.length)) {
+            reset();
+        }
+        nd.setTitle("Peanoware" + "   " +
+                (Pair.EXAMPLES.length - numberOfFormulae) + "/" + Pair.EXAMPLES.length);
 
         aD = new AlertDialog.Builder(context);
         paint = new Paint();
@@ -63,7 +81,7 @@ public class NdView extends View {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        pair = new Pair();
+        pair = new Pair(currentIndex);
         attachVector = new Vector<>();
         modPointFrom = new ModPoint();
         modPointTo = new ModPoint();
@@ -389,17 +407,70 @@ public class NdView extends View {
     }
     /** Disable the proof board */
     void setInactive() {
+        numberOfFormulae--;
+        activeFormulae = activeFormulae.substring(0, currentIndex) + "X" +
+                         activeFormulae.substring(currentIndex + 1);
+        if (numberOfFormulae != 0) {
+            currentIndex = getNextCurrentIndex();
+        }
         bravo = true;
+        nd.setTitle("Peanoware" + "   " +
+                (Pair.EXAMPLES.length - numberOfFormulae) + "/" + Pair.EXAMPLES.length);
         invalidate();
     }
 
-    /** Put a new formula **/
     public void init() {
-        pair.init();
+        pair.init(currentIndex);
         bravo = false;
         centerMainTree();
         setCurrentTree(getMainTree());
     }
+
+    /** Put a new formula **/
+    public void next() {
+        if ((numberOfFormulae == 0) || (!bravo && (numberOfFormulae == 1))) {
+            return;
+        }
+        if (!bravo) {
+            numberOfFormulae--;
+            String s = activeFormulae;
+            activeFormulae = s.substring(0, currentIndex) + "X" +
+                    s.substring(currentIndex + 1);
+            currentIndex = getNextCurrentIndex();
+            numberOfFormulae++;
+            activeFormulae = s;
+        }
+        init();
+    }
+
+    public int getNextCurrentIndex() {
+        int n = rand.nextInt(numberOfFormulae);
+        int i = 0;
+        for (; i < activeFormulae.length(); i++) {
+            if (activeFormulae.charAt(i) == 'O') {
+                if (n == 0) {
+                    return i;
+                }
+                n--;
+            }
+        }
+        reset();
+        return currentIndex;
+    }
+
+    /** Put a new formula **/
+    public void reset() {
+        int n = Pair.EXAMPLES.length;
+        char[] chars = new char[n];
+        Arrays.fill(chars, 'O');
+        activeFormulae = new String(chars);
+        numberOfFormulae = n;
+        currentIndex = rand.nextInt(n);
+        nd.setTitle("Peanoware" + "   " +
+                (Pair.EXAMPLES.length - numberOfFormulae) + "/" + Pair.EXAMPLES.length);
+    }
+
+
 
     /** Check if we have reached the result **/
     void checkWin() {
@@ -418,7 +489,7 @@ public class NdView extends View {
         tree.setOrigin((getWidth()
                         - tree.getSize().width()) / 2,
                  (getHeight()
-                        - tree.getSize().height()) - 10);
+                        - tree.getSize().height()) - (2 + Resources.SIZE_FORMULA / 3));
     }
 
     // Compute the possible attach point
