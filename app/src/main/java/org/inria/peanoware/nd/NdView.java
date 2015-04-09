@@ -713,13 +713,21 @@ public class NdView extends View {
         Tree tmp;
         for (int i = 0; i < recs.length; i++) {
             tmp = (Tree) en.nextElement();
-            recs[i] = vis.bestChoice(tmp.getSize());
+            r = tmp.getSize();
+            r1 = new Rect(r.left - 2 * DELTA, r.top - 2 * DELTA,
+                    r.right + 2 * DELTA, r.bottom + 2 * DELTA);
+            recs[i] = vis.bestChoice(r1);
             if (recs[i] == null) {
                 // aD.setMessage(R.string.alert_size);
                 // aD.show();
                 return false;
             }
             vis.remove(recs[i]);
+            recs[i].left += 2 * DELTA;
+            recs[i].right -= 2 * DELTA;
+            recs[i].top += 2 * DELTA;
+            recs[i].bottom -= 2 * DELTA;
+
         }
         en = pair.getHypothesis();
         getMainTree().update(mainRec);
