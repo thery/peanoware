@@ -57,12 +57,27 @@ public class NdView extends View {
     private boolean configurationChanged;
     private SoundPool soundPool;
     private boolean loaded;
-    private int soundID;
+    private int soundID1;
+    private int soundID2;
+    private int soundID3;
     private AudioManager audioManager;
 
     public NdView(NdActivity nD, Context context, AttributeSet attrs,
                   String aF, int nF, int cI) {
         super(context, attrs);
+        audioManager =
+                (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        soundID1 = soundPool.load(context, R.raw.sound1, 1);
+        soundID2 = soundPool.load(context, R.raw.sound2, 1);
+        soundID3 = soundPool.load(context, R.raw.sound3, 1);
         nd = nD;
         activeFormulae = aF;
         numberOfFormulae = nF;
@@ -87,18 +102,6 @@ public class NdView extends View {
         modPointTo = new ModPoint();
         mp = new ModPoint();
         configurationChanged = false;
-        audioManager =
-                (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
-        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                       int status) {
-                loaded = true;
-            }
-        });
-        soundID = soundPool.load(context, R.raw.sound1, 1);
-
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -114,14 +117,14 @@ public class NdView extends View {
         }
         paintComponent(canvas, paint);
     }
-    private void playSound() {
+    private void playSound(int sid) {
         float actualVolume = (float) audioManager
                 .getStreamVolume(AudioManager.STREAM_MUSIC);
         float maxVolume = (float) audioManager
                 .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         float volume = actualVolume / maxVolume;
         if (loaded) {
-            soundPool.play(soundID, volume, volume, 1, 0, 1f);
+            soundPool.play(sid, volume, volume, 1, 0, 1f);
         }
     }
     @Override
@@ -140,7 +143,7 @@ public class NdView extends View {
                 if (tree != null && tree != getCurrentTree()) {
                     setCurrentTree(tree);
                     tree = pair.inside((int) event.getX(), (int) event.getY(), mp);
-                    playSound();
+                    playSound(soundID1);
                     return true;
                 }
                 mp.set(0, 0, Tree.A_NONE);
@@ -245,14 +248,14 @@ public class NdView extends View {
                 return;
             }
             commitAttach(selectedFrom, selectedTo);
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (selectedFrom.isClosedLeaf() && selectedFrom.getFather() == null) {
             if (!isInContext(selectedFrom.getConclusion())) {
                 pair.removeHyp(selectedFrom);
                 setCurrentTree(getMainTree());
-                playSound();
+                playSound(soundID1);
                 invalidate();
                 return;
             }
@@ -261,7 +264,7 @@ public class NdView extends View {
         if (isUp(selectedFrom)) {
             /** The user is trying to develop an open leaf **/
             commitMergeUp();
-            playSound();
+            playSound(soundID1);
             return;
         }
         /** The user is trying to develop a conclusion (elimination rule) **/
@@ -270,35 +273,35 @@ public class NdView extends View {
         if (f.isAnd()) {
             if (father == null) {
                 performModification(selectedFrom, selectedFrom.makeAndE(Tree.LEFT));
-                playSound();
+                playSound(soundID1);
                 return;
             }
             if (father.isAndE(Tree.RIGHT)) {
                 performModification(selectedFrom.getRoot(), selectedFrom);
-                playSound();
+                playSound(soundID1);
                 return;
             }
             if (father.isAndE(Tree.LEFT)) {
                 performModification(selectedFrom.getRoot(),
                         selectedFrom.makeAndE(Tree.RIGHT));
-                playSound();
+                playSound(soundID1);
                 return;
             }
             return;
         }
         if (father != null) {
             performModification(selectedFrom.getRoot(), selectedFrom);
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (f.isImp()) {
             performModification(selectedFrom, selectedFrom.makeImpE());
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (f.isNeg()) {
             performModification(selectedFrom, selectedFrom.makeNegE());
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (attachVector.size() == 1) {
@@ -321,17 +324,17 @@ public class NdView extends View {
         }
         if (up.getConclusion().equals(down.getConclusion())) {
             performModification(down, up, up);
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (up.getConclusion().isFalse()) {
             performModification(down, up.makeFalseE(down.getConclusion()), up);
-            playSound();
+            playSound(soundID1);
             return;
         }
         if (up.getConclusion().isOr()) {
             performModification(down, up.makeOrE(down.getConclusion()), up);
-            playSound();
+            playSound(soundID1);
         }
 
     }
@@ -414,6 +417,7 @@ public class NdView extends View {
             currentIndex = getNextCurrentIndex();
         }
         bravo = true;
+        playSound(soundID2);
         nd.setTitle("Peanoware" + "   " +
                 (Pair.EXAMPLES.length - numberOfFormulae) + "/" + Pair.EXAMPLES.length);
         invalidate();
@@ -462,6 +466,7 @@ public class NdView extends View {
     public void reset() {
         int n = Pair.EXAMPLES.length;
         char[] chars = new char[n];
+        playSound(soundID3);
         Arrays.fill(chars, 'O');
         activeFormulae = new String(chars);
         numberOfFormulae = n;
