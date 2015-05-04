@@ -426,7 +426,7 @@ public class NdView extends View {
     public void init() {
         pair.init(currentIndex);
         bravo = false;
-        centerMainTree();
+        redraw();
         setCurrentTree(getMainTree());
     }
 
@@ -487,14 +487,6 @@ public class NdView extends View {
 
     Tree getMainTree() {
         return pair.getMain();
-    }
-
-    void centerMainTree() {
-        Tree tree = getMainTree();
-        tree.setOrigin((getWidth()
-                        - tree.getSize().width()) / 2,
-                 (getHeight()
-                        - tree.getSize().height()) - (2 + Resources.SIZE_FORMULA / 3));
     }
 
     // Compute the possible attach point
