@@ -6,9 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import org.inria.peanoware.Resources;
 import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.geometry.TextLayout;
-import org.inria.peanoware.Resources;
 
 import java.util.Vector;
 

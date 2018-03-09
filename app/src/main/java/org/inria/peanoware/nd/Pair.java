@@ -5,13 +5,14 @@ package org.inria.peanoware.nd;
  * @date 2/15/15.
  Pair of a tree and its subtrees
 **/
+
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.Resources;
+import org.inria.peanoware.formula.Formula;
 
 import java.util.Enumeration;
 import java.util.Vector;

@@ -1,9 +1,10 @@
 package org.inria.peanoware.formula;
 
- import android.graphics.Point;
+import android.graphics.Point;
 
- import org.inria.peanoware.Resources;
- import java.util.Vector;
+import org.inria.peanoware.Resources;
+
+import java.util.Vector;
 
 /**
  * @author Laurent Théry

@@ -5,6 +5,7 @@ package org.inria.peanoware.nd;
  * @date 2/21/15.
  * View for Natural deduction
  */
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -13,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.support.annotation.NonNull;
@@ -23,10 +23,10 @@ import android.view.View;
 
 import org.inria.peanoware.NdActivity;
 import org.inria.peanoware.R;
+import org.inria.peanoware.Resources;
 import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.geometry.Dimension;
 import org.inria.peanoware.geometry.Visible;
-import org.inria.peanoware.Resources;
 
 import java.util.Arrays;
 import java.util.Enumeration;

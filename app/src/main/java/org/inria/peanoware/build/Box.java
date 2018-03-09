@@ -7,9 +7,8 @@ import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 
-import org.inria.peanoware.formula.Formula;
-
 import org.inria.peanoware.Resources;
+import org.inria.peanoware.formula.Formula;
 import org.inria.peanoware.formula.Int;
 
 import java.util.Random;
